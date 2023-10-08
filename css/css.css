@@ -42,11 +42,11 @@ h1 {
 }
 /* baner */
 #banner {
-  background-image: url(/images/images/bg-banner.gif);
+  background-image: url(/images/bg-banner.gif);
 }
 #banner > div {
-  background: url(/images/images/logo_bg.png) left top no-repeat,
-    url(/images/images/search_bg.png) right top no-repeat;
+  background: url(/images/logo_bg.png) left top no-repeat,
+    url(/images/search_bg.png) right top no-repeat;
   padding: 5rem 0 3rem 0;
 }
 #banner a {
@@ -100,7 +100,7 @@ h1 {
 }
 /* footer */
 footer {
-  background-image: url(../images/images/bg-footer.gif);
+  background-image: url(/images/bg-footer.gif);
 }
 #menu-item a {
   color: white;
