@@ -80,6 +80,10 @@ h1 {
 #banner .carousel-indicators li.active span {
   background-color: var(--web1-green);
 }
+#banner-small {
+  background-image: url(../images/bg-banner.gif);
+  padding: 0.25rem;
+}
 /* product */
 .readmore {
   color: var(--web1-blue);
@@ -94,9 +98,14 @@ h1 {
   border-style: dashed !important;
   border-color: rgb(125, 75, 97) !important ;
 }
+.web1-text-blue {
+  color: var(--web1-blue);
+}
 /* news */
 #news .date {
   background-color: var(--web1-green);
+  width: 6rem;
+  padding: 1.5rem;
 }
 /* footer */
 footer {
@@ -114,4 +123,16 @@ footer p {
 }
 .modal-body button {
   background-color: var(--web1-blue);
+}
+/* testimonials */
+#testimonials {
+  background-color: var(--web1-pink);
+}
+#testimonials .col {
+  background: url(../images/quot.png) left top no-repeat;
+  padding-left: 3rem;
+}
+
+#visions a {
+  text-align: left;
 }

@@ -16,11 +16,7 @@
       integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
       crossorigin="anonymous"
     />
-    <link
-      rel="shortcut icon"
-      href="images/images/favicon.ico"
-      type="image/x-icon"
-    />
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="/css/css.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -35,12 +31,12 @@
   </head>
 
   <body>
-    <!-- header -->
+    <!-- header-->
     <header class="container">
       <nav class="navbar navbar-expand-sm navbar-light bg-light">
         <div class="container">
           <a class="navbar-brand" href="index.html">
-            <img src="./images/images/logo.png" alt="" />
+            <img src="images/logo.png" alt="" />
           </a>
           <button
             class="navbar-toggler d-lg-none"
@@ -56,12 +52,12 @@
           <div class="collapse navbar-collapse ms-5" id="menu-header">
             <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" href="#" aria-current="page"
-                  >Home <span class="visually-hidden">(current)</span></a
-                >
+                <a class="nav-link" href="index.html">Home </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="about.html">about</a>
+                <a class="nav-link active" href="about.html" aria-current="page"
+                  >About<span class="visually-hidden">(current)</span></a
+                >
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="Gallery.html">Gallery</a>
@@ -100,18 +96,31 @@
         </div>
       </nav>
     </header>
-    <!-- banner -->
-    <h1>About us</h1>
+    <section class="container-fluid" id="banner-small"></section>
+    <div id="content">
+      <!-- about -->
+      <section class="container py-5">
+        <div class="row">
+          <div class="col-lg-7 col-ms-12" id="about-us1"></div>
+          <div class="col-lg-5 col-ms-12" id="visions"></div>
+        </div>
+      </section>
+      <!-- text-timonirial -->
+      <section class="container-fluid py-5" id="testimonials"></section>
+      <!-- outteam -->
+      <section id="out-team" class="container"></section>
+    </div>
+
     <!-- footer -->
     <footer class="text-center container-fluid py-3">
       <ul class="nav justify-content-center" id="menu-item">
         <li class="nav-item">
-          <a class="nav-link active" href="#" aria-current="page"
+          <a class="nav-link" href="index.html" aria-current="page"
             >Home <span class="visually-hidden">(current)</span></a
           >
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="about.html">About</a>
+          <a class="nav-link active" href="about.html">About</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="Gallery.html">Gallery</a>
@@ -215,5 +224,127 @@
       integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz"
       crossorigin="anonymous"
     ></script>
+    <!-- handlebar -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js"
+      integrity="sha512-E1dSFxg+wsfJ4HKjutk/WaCzK7S2wv1POn1RRPGh8ZK+ag9l244Vqxji3r6wgz9YBf6+vhQEYJZpSjqWFPg9gg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="js/21880229.js"></script>
+    <script>
+      loadData("aboutus", "about-us-template", "about-us1");
+      loadData("visions", "vision-template", "visions");
+      loadData("testimonials", "Testimonials-template", "testimonials");
+      loadData("team", "about-team-template", "out-team");
+    </script>
+    <script id="products-template" type="text/x-handlebars-template">
+      <div class="row text-center py-5">
+        {{#each data}}
+          <div class="col-lg-3 col-md-6 col-sm-12">
+            <img src="{{imagepath}}" alt="{{name}}" />
+            <h3>{{name}}</h3>
+            <p>{{summary}}</p>
+            <a class="readmore btn btn-link" href="#">Read more</a>
+          </div>
+        {{/each}}
+      </div>
+    </script>
+    <script id="about-us-template" type="text/x-handlebars-template">
+      <h1 class="mb-3">ABOUT US</h1>
+      <div class="clearfix">
+        {{#each data}}
+          <img
+            class="float-start rounded-4 me-3"
+            src={{thumbpath}}
+            alt="About us"
+          />
+          {{{summary}}}
+          <a
+            href="#"
+            class="btn btn-link readmore p-0"
+            onclick=" loadData('aboutus/{{id}}', 'detail-about-template', 'content');"
+          >Read more</a>
+        {{/each}}
+      </div>
+    </script>
+    <script id="vision-template" type="text/x-handlebars-template">
+      <h1 class="py-3">OUT VISON</h1>
+      {{#each data}}
+
+        <a
+          href="#"
+          onclick="loadData('visions/{{id}}','detail-visions-template','content')"
+          class="btn"
+        >
+          <div class="py-3 clearfix">
+            <img
+              src={{thumbpath}}
+              alt={{name}}
+              class="float-start rounded-4 me-3"
+            />
+            <h3>{{name}}</h3>
+            <p class="text-black-50">
+              {{summary}}
+            </p>
+          </div>
+        </a>
+      {{/each}}
+    </script>
+    <script id="detail-about-template" type="text/x-handlebars-template">
+      <div class="container py-5 overflow-auto">
+        {{#each data}}
+          <h1 class="py-3">{{name}}</h1>
+          <img
+            class="float-start rounded-4 me-3 imgdetail"
+            src={{imagepath}}
+            alt={{name}}
+          />
+          {{{description}}}
+        {{/each}}
+      </div>
+    </script>
+    <script id="detail-visions-template" type="text/x-handlebars-template">
+      <div class="container py-5 overflow-auto">
+        {{#each data}}
+          <h1 class="py-3">{{name}}</h1>
+          <img
+            class="float-start rounded-4 me-3 imgdetail"
+            src={{imagepath}}
+            alt={{name}}
+          />
+          {{{description}}}
+        {{/each}}
+      </div>
+    </script>
+    <script id="Testimonials-template" type="text/x-handlebars-template">
+      <div class="container">
+        <h1 class="text-white">Testimonials</h1>
+        <div class="row py-3">
+          {{#each data}}
+            <div class="col">
+              <p class="text-black-50">
+                {{summary}}
+              </p>
+              <span class="text-white">{{name}}</span><br />
+              <a href="#">{{email}}g</a>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    </script>
+    <script id="about-team-template" type="text/x-handlebars-template">
+      <div class="row py-5">
+        {{#each data}}
+          <div class="col">
+            <img src={{thumbpath}} alt="out-team1" class="rounded-4 mb-3" />
+            <h4>{{name}}</h4>
+            <p class="text-black-50">
+              {{summary}}
+            </p>
+          </div>
+        {{/each}}
+      </div>
+    </script>
   </body>
 </html>

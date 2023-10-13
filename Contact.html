@@ -16,12 +16,8 @@
       integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
       crossorigin="anonymous"
     />
-    <link
-      rel="shortcut icon"
-      href="../images/images/favicon.ico"
-      type="image/x-icon"
-    />
-    <link rel="stylesheet" href="/css.css" />
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/css.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -33,14 +29,13 @@
       crossorigin="anonymous"
     ></script>
   </head>
-
+  <!-- sđấ-->
   <body>
-    <!-- header -->
     <header class="container">
       <nav class="navbar navbar-expand-sm navbar-light bg-light">
         <div class="container">
           <a class="navbar-brand" href="index.html">
-            <img src="/images/images/logo.png" alt="" />
+            <img src="images/logo.png" alt="" />
           </a>
           <button
             class="navbar-toggler d-lg-none"
@@ -56,12 +51,12 @@
           <div class="collapse navbar-collapse ms-5" id="menu-header">
             <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" href="#" aria-current="page"
+                <a class="nav-link active" href="index.html" aria-current="page"
                   >Home <span class="visually-hidden">(current)</span></a
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="about.html">about</a>
+                <a class="nav-link" href="about.html">About</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="Gallery.html">Gallery</a>
@@ -100,14 +95,12 @@
         </div>
       </nav>
     </header>
-
-    <!-- banner -->
-    <h1>Contact</h1>
+    <h2>Contact</h2>
     <!-- footer -->
     <footer class="text-center container-fluid py-3">
       <ul class="nav justify-content-center" id="menu-item">
         <li class="nav-item">
-          <a class="nav-link active" href="#" aria-current="page"
+          <a class="nav-link active" href="index.html" aria-current="page"
             >Home <span class="visually-hidden">(current)</span></a
           >
         </li>
@@ -216,5 +209,37 @@
       integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz"
       crossorigin="anonymous"
     ></script>
+    <!-- handlebar -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js"
+      integrity="sha512-E1dSFxg+wsfJ4HKjutk/WaCzK7S2wv1POn1RRPGh8ZK+ag9l244Vqxji3r6wgz9YBf6+vhQEYJZpSjqWFPg9gg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+      (async function () {
+        const response = await fetch(
+          "https://web1-api.vercel.app/api/products"
+        );
+        const data = await response.json();
+        var source = document.getElementById("products-template").innerHTML;
+        var template = Handlebars.compile(source);
+        var context = { data: data };
+        var view = document.getElementById("products");
+        view.innerHTML = template(context);
+      })();
+    </script>
+    <script id="products-template" type="text/x-handlebars-template">
+      <div class="row text-center py-5">
+        {{#each data}}
+          <div class="col-lg-3 col-md-6 col-sm-12">
+            <img src="{{imagepath}}" alt="{{name}}" />
+            <h3>{{name}}</h3>
+            <p>{{summary}}</p>
+            <a class="readmore btn btn-link" href="#">Read more</a>
+          </div>
+        {{/each}}
+      </div>
+    </script>
   </body>
 </html>
