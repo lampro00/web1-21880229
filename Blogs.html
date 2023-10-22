@@ -51,18 +51,18 @@
           <div class="collapse navbar-collapse ms-5" id="menu-header">
             <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" href="index.html" aria-current="page"
-                  >Home <span class="visually-hidden">(current)</span></a
-                >
+                <a class="nav-link" href="index.html">Home </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="about.html">About</a>
+                <a class="nav-link" href="about.html" aria-current="page"
+                  >About<span class="visually-hidden">(current)</span></a
+                >
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="Gallery.html">Gallery</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="Blogs.html">Blogs</a>
+                <a class="nav-link active" href="Blogs.html">Blogs</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="Contact.html">Contacts</a>
@@ -95,12 +95,51 @@
         </div>
       </nav>
     </header>
-    <h2>Blogs</h2>
+    <section id="banner-small"></section>
+    <section class="container py-5">
+      <div class="row py-5">
+        <div class="col-8">
+          <h1>Blogs</h1>
+          <div id="Blogs-content">
+            <div id="Blogs"></div>
+            <nav aria-label="Page navigation ">
+              <ul class="pagination py-3" id="pagination">
+                <li class="page-item" aria-current="page">
+                  <a
+                    class="page-link active"
+                    href="#"
+                    onclick="active(this);loadData1('blogs?page=1', 'Blogs-template', 'Blogs')"
+                    >1</a
+                  >
+                </li>
+                <li class="page-item">
+                  <a
+                    class="page-link"
+                    href="#"
+                    onclick="active(this);loadData1('blogs?page=2', 'Blogs-template', 'Blogs')"
+                    >2</a
+                  >
+                </li>
+                <li class="page-item">
+                  <a
+                    class="page-link"
+                    href="#"
+                    onclick="loadData1('blogs?page=3', 'Blogs-template', 'Blogs');active(this)"
+                    >3</a
+                  >
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <div class="col-4" id="Categories"></div>
+      </div>
+    </section>
     <!-- footer -->
     <footer class="text-center container-fluid py-3">
       <ul class="nav justify-content-center" id="menu-item">
         <li class="nav-item">
-          <a class="nav-link active" href="index.html" aria-current="page"
+          <a class="nav-link" href="index.html" aria-current="page"
             >Home <span class="visually-hidden">(current)</span></a
           >
         </li>
@@ -108,7 +147,7 @@
           <a class="nav-link" href="about.html">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="Gallery.html">Gallery</a>
+          <a class="nav-link active" href="Gallery.html">Gallery</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="Blogs.html">Blogs</a>
@@ -216,30 +255,119 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
+
+    <script src="js/21880229.js"></script>
     <script>
-      (async function () {
-        const response = await fetch(
-          "https://web1-api.vercel.app/api/products"
-        );
-        const data = await response.json();
-        var source = document.getElementById("products-template").innerHTML;
-        var template = Handlebars.compile(source);
-        var context = { data: data };
-        var view = document.getElementById("products");
-        view.innerHTML = template(context);
-      })();
+      loadData1("blogs", "Blogs-template", "Blogs");
+      loadData("blogs-categories", "Blogs-categories-template", "Categories");
+      function active(page) {
+        let pages = document.querySelectorAll(`#pagination a`);
+        for (i = 0; i < pages.length; i++) {
+          pages[i].classList.remove("active");
+          console.log("a");
+        }
+        page.classList.add("active");
+
+        console.log(page);
+      }
+      function loadCategories(id) {
+        loadData(`blogs/${id}`, "Blogs-template", "Blogs");
+      }
     </script>
-    <script id="products-template" type="text/x-handlebars-template">
-      <div class="row text-center py-5">
-        {{#each data}}
-          <div class="col-lg-3 col-md-6 col-sm-12">
-            <img src="{{imagepath}}" alt="{{name}}" />
-            <h3>{{name}}</h3>
-            <p>{{summary}}</p>
-            <a class="readmore btn btn-link" href="#">Read more</a>
+    <script id="Blogs-template" type="text/x-handlebars-template">
+      {{#each data}}
+        <div class="overflow-auto py-3">
+          <h2>{{name}}</h2>
+          <p>
+            by
+            {{author}}
+            in
+            <a href="#" class="p-0">Blogs .{{id}}</a>
+            on
+            {{date}}
+            Hits 210
+            <a href="#" class="p-0">Comments ({{comments.length}}) </a></p>
+          <img
+            src={{thumbpath}}
+            alt={{name}}
+            class="float-start rounded-4 me-3 img-thumbnail"
+          />
+          <p class="text-black-50">
+            {{summary}}
+          </p>
+          <a
+            href="#"
+            class="btn btn-link readmore p-0"
+            onclick="loadData('blogs/{{id}}', 'detail-blogs-template', 'Blogs-content')"
+          >Read more</a>
+        </div>
+      {{/each}}
+    </script>
+    <script id="detail-blogs-template" type="text/x-handlebars-template">
+      {{#each data}}
+        <div class="overflow-auto py-3">
+          <h2>{{name}}</h2>
+          <p>
+            by
+            {{author}}
+            in
+            <a href="" class="p-0">Blogs .{{id}}</a>
+            on
+            {{date}}
+            Hits 210
+            <a href="" class="p-0">Comments ({{comments.length}}) </a></p>
+          <img
+            src={{thumbpath}}
+            alt={{name}}
+            class="float-start rounded-4 me-3 img-thumbnail"
+          />
+          <p class="text-black-50">
+            {{{description}}}
+          </p>
+        </div>
+        <form action="#" method="post" id="formSubmit-Comment" class="py-5">
+          <h2>Leave your comment</h2>
+          <h2>post your commet a guest</h2>
+          <div class="row py-3">
+            <div class="col-3">
+              <label class="text-black-50" for="">Name(Requried)</label>
+              <br />
+              <input class="form-control" type="text" name="Name" id="name" />
+            </div>
+            <div class="col-3">
+              <label class="text-black-50" for="">Email</label><br />
+              <input class="form-control" type="text" name="email" id="email" />
+            </div>
           </div>
+
+          <textarea
+            class="form-control py-3"
+            aria-label="With textarea"
+          ></textarea>
+          <input class="my-3" type="text" name="" id="" value="true" />
+          <label for="" class="text-black-50">Agree to terms and conditions</label>
+          <a class="btn float-end py-3 btn-link" type="submit">Submit comment</a>
+
+        </form>
+        <div class="container-fluid py-1" id="banner-comment">COMMENTS</div>
+        <div class="comment py-3">
+          {{#each comments}}
+            <p>{{name}}--{{date}}</p>
+            <p>{{summary}}</p>
+            <hr />
+          {{/each}}
+        </div>
+      {{/each}}
+    </script>
+    <script id="Blogs-categories-template" type="text/x-handlebars-template">
+      <h1>Categories</h1>
+      <ul class="px-0">
+        {{#each data}}
+          <li>
+            <a class="btn" href="#">{{name}}</a>
+          </li>
         {{/each}}
-      </div>
+      </ul>
     </script>
   </body>
 </html>

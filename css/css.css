@@ -136,3 +136,30 @@ footer p {
 #visions a {
   text-align: left;
 }
+.fa-circle-arrow-right {
+  color: var(--web1-green);
+}
+#Categories li {
+  list-style: none;
+}
+#Blogs a {
+  text-decoration: none;
+}
+#Blogs p {
+  --bs-text-opacity: 1;
+  color: rgba(0, 0, 0, 0.5) !important;
+}
+#Categories li {
+  background: url(/images/marker1.png) left center no-repeat;
+}
+#Categories li a {
+  padding-left: 1.25rem;
+}
+#formSubmit-Comment a {
+  text-decoration: none !important;
+}
+#banner-comment {
+  background-color: rgb(51, 51, 51);
+
+  color: rgb(104, 106, 107);
+}

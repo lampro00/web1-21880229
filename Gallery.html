@@ -51,15 +51,15 @@
           <div class="collapse navbar-collapse ms-5" id="menu-header">
             <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" href="index.html" aria-current="page"
-                  >Home <span class="visually-hidden">(current)</span></a
+                <a class="nav-link" href="index.html">Home </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="about.html" aria-current="page"
+                  >About<span class="visually-hidden">(current)</span></a
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="about.html">About</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="Gallery.html">Gallery</a>
+                <a class="nav-link active" href="Gallery.html">Gallery</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="Blogs.html">Blogs</a>
@@ -95,12 +95,18 @@
         </div>
       </nav>
     </header>
-    <h2>Gallery</h2>
+    <section id="banner-small"></section>
+    <section class="container py-5">
+      <h1>Gallery</h1>
+      <strong>Filter by catelogy:</strong>
+      <ul class="nav" id="gallery-categories"></ul>
+      <div class="row" id="gallery"></div>
+    </section>
     <!-- footer -->
     <footer class="text-center container-fluid py-3">
       <ul class="nav justify-content-center" id="menu-item">
         <li class="nav-item">
-          <a class="nav-link active" href="index.html" aria-current="page"
+          <a class="nav-link" href="index.html" aria-current="page"
             >Home <span class="visually-hidden">(current)</span></a
           >
         </li>
@@ -108,7 +114,7 @@
           <a class="nav-link" href="about.html">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="Gallery.html">Gallery</a>
+          <a class="nav-link active" href="Gallery.html">Gallery</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="Blogs.html">Blogs</a>
@@ -216,18 +222,22 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
+
+    <script src="js/21880229.js"></script>
     <script>
-      (async function () {
-        const response = await fetch(
-          "https://web1-api.vercel.app/api/products"
-        );
-        const data = await response.json();
-        var source = document.getElementById("products-template").innerHTML;
-        var template = Handlebars.compile(source);
-        var context = { data: data };
-        var view = document.getElementById("products");
-        view.innerHTML = template(context);
-      })();
+      loadData(
+        "gallery-categories",
+        "gallery-categories-template",
+        "gallery-categories"
+      );
+      loadData("gallery", "gallery-template", "gallery");
+      function disabled(link) {
+        let links = document.querySelectorAll(`#gallery-categories a`);
+        for (i = 0; i < links.length; i++) {
+          links[i].classList.remove("disabled");
+        }
+        link.classList.toggle("disabled");
+      }
     </script>
     <script id="products-template" type="text/x-handlebars-template">
       <div class="row text-center py-5">
@@ -240,6 +250,31 @@
           </div>
         {{/each}}
       </div>
+    </script>
+    <script id="gallery-categories-template" type="text/x-handlebars-template">
+      <li class="nav-item">
+        <a
+          class="nav-link disabled"
+          href="#"
+          onclick="disabled(this);loadData('gallery','gallery-template','gallery') "
+        >Show all</a>
+      </li>
+      {{#each data}}
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            href="#"
+            onclick="loadData('gallery/categories/{{id}}','gallery-template','gallery');disabled(this)"
+          >{{name}}</a>
+        </li>
+      {{/each}}
+    </script>
+    <script id="gallery-template" type="text/x-handlebars-template">
+      {{#each data}}
+        <div class="col-md-3 mb-2">
+          <img src={{imagepath}} alt={{name}} class="img-thumbnail" />
+        </div>
+      {{/each}}
     </script>
   </body>
 </html>
